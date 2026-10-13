@@ -76,10 +76,14 @@ public class JobServiceImpl implements JobService {
     @Override
     @Transactional
     public void delete(UUID id) {
-        if (!jobRepository.existsById(id)) {
+        Job job = jobRepository.findById(id).orElseThrow(() -> {
             throw new IllegalArgumentException("Job not found!");
-        }
-        jobRepository.deleteById(id);
+        });
+
+        // Soft delete: không xóa dữ liệu thật, chỉ đánh dấu bản ghi đã bị xóa.
+        job.setDeleted(true);
+        job.setDeletedAt(OffsetDateTime.now());
+        jobRepository.save(job);
     }
 
     @Override
