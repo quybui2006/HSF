@@ -71,7 +71,7 @@ public class JobController {
     }
 
     // 2.2 Xử lý Form Thêm mới (Submit POST)
-    @PostMapping
+    @PostMapping("/create")
     public String processCreate(@ModelAttribute CreateJobRequest request) {
         jobService.create(request);
         return "redirect:/jobs";
@@ -79,7 +79,7 @@ public class JobController {
 
     // 3. SỬA (Update)
     // 3.1 Hiển thị form Sửa (Lấy dữ liệu cũ)
-    @GetMapping(value = {"/{id}", "/"})
+    @GetMapping(value = {"/{id}"})
     public String showUpdateForm(@PathVariable(required = false, name = "id") UUID id, Model model) {
         model.addAttribute("job", jobService.findById(id));
         model.addAttribute("isEdit", true);
