@@ -36,7 +36,7 @@ public class CandidateController {
         System.out.println("Candidate Management");
         List<University> universities = universityService.getAllUniversities();
         model.addAttribute("universities", universities);
-        return "create_candidate";
+        return "candidates/create_candidate";
     }
 
     @PostMapping("/candidates")
